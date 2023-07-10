@@ -163,3 +163,5 @@ cpp/generated/
 python/demo
 
 .vscode/settings.json
+
+**/*.bin

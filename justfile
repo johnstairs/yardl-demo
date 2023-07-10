@@ -32,4 +32,5 @@ setup-completions:
 
 @init: install-yardl install-watchexec install-python-dependencies setup-completions
 
-
+@watch:
+    watchexec -c -e py --workdir python -i **/__pycache__/** --on-busy-update do-nothing --no-project-ignore -- python run_demo.py
