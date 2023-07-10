@@ -1,6 +1,6 @@
 set shell := ['bash', '-ceuo', 'pipefail']
 
-yardl_branch := "main"
+yardl_branch := "johnstairs/python-experiments"
 
 @default:
 
@@ -20,9 +20,16 @@ install-watchexec:
     watchexec_version="1.22.3"
     wget --quiet https://github.com/watchexec/watchexec/releases/download/v${watchexec_version}/watchexec-${watchexec_version}-x86_64-unknown-linux-musl.deb -O /tmp/watchexec.deb && sudo dpkg -i /tmp/watchexec.deb
 
-install-python-dependencies:
+@install-python-dependencies:
     pip install numpy
 
-init: install-yardl install-watchexec install-python-dependencies
+setup-completions:
+    #!/usr/bin/env bash
+    sudo apt update
+    sudo apt-get install bash-completion -y
+    just --completions bash | sudo tee /etc/bash_completion.d/just > /dev/null
+    yardl completion bash | sudo tee /etc/bash_completion.d/yardl > /dev/null
+
+@init: install-yardl install-watchexec install-python-dependencies setup-completions
 
 
